@@ -258,6 +258,8 @@ mysql> select * from student;
 Primary key column is single in one table.
 (No null , No duplicate , also create Cluster index.)
 
+Cluster and Non cluster
+
 ADD multiple column in the table and use AFTER to Enter Column in the middle of the table And use FIRST to add column in the FIRST to the table.
 
 ```sql
@@ -415,4 +417,368 @@ To rename the table name
 alter table student rename to studinfo;
 ```
 
+ADD two column at most one
+
+```sql
+ALTER TABLE student ADD COLUMN (contact varchar(10),email varchar(30));
+```
+
+Update query 
+
+```sql 
+update demo set id=3 where name='aa';
+```
+
+Show selected column 
+
+```sql
+select rollno,name,address from student;
+```
+
+Operator in SQL
+
+<
+
+<=
+
+">"
+
+">="
+
+"!=" and "<>" not equal to
+
+query to check marks >= 70
+
+```sql
+select * from student where marks >=70;
+```
+
+```sql
+select * from student where address='Nashik';
+```
+
+logical
+
+AND
+
+```sql
+select * from student where address='Nashik' AND percentage>=70;
+```
+
+OR
+
+```sql
+select * from student where address='Nashik' OR address='pune';
+```
+
+not equal to
+
+```sql
+select * from student where address !='vadgoan';
+
+select * from student where address !='nashik';
+```
+
+IN (student which is live in these cities )
+
+```sql
+select * from student where address IN('delhi','Banglore','Mumbai');
++--------+---------+----------+------------+------------+-------+
+| rollno | name    | address  | percentage | contact    | email |
++--------+---------+----------+------------+------------+-------+
+|      8 | Palle   | Delhi    |      91.00 | 4229748    |       |
+|      9 | surti   | Banglore |      78.00 | 42820348   |       |
+|     10 | swanand | Mumbai   |      86.00 | 4282033848 |       |
++--------+---------+----------+------------+------------+-------+
+3 rows in set (0.00 sec)
+```
+
+NOT IN (except these cities)
+
+```sql
+select * from student where address NOT IN('delhi','Nashik');
++--------+---------+----------+------------+------------+-------+
+| rollno | name    | address  | percentage | contact    | email |
++--------+---------+----------+------------+------------+-------+
+|      3 | Omya    | pune     |      65.00 | 24364857   |       |
+|      6 | Duggu   | vadgoan  |      80.00 | 9856734    |       |
+|      7 | Sakshi  | vadgoan  |      80.00 | 9467734    |       |
+|      9 | surti   | Banglore |      78.00 | 42820348   |       |
+|     10 | swanand | Mumbai   |      86.00 | 4282033848 |       |
++--------+---------+----------+------------+------------+-------+
+5 rows in set (0.00 sec)
+```
+
+DISTINCT (avoid repitation)
+
+```sql
+mysql> select address from student;
++----------+
+| address  |
++----------+
+| Nashik   |
+| Nashik   |
+| pune     |
+| Nashik   |
+| Nashik   |
+| vadgoan  |
+| vadgoan  |
+| Delhi    |
+| Banglore |
+| Mumbai   |
++----------+
+10 rows in set (0.00 sec)
+
+mysql> select DISTINCT address from student;
++----------+
+| address  |
++----------+
+| Nashik   |
+| pune     |
+| vadgoan  |
+| Delhi    |
+| Banglore |
+| Mumbai   |
++----------+
+6 rows in set (0.00 sec)
+
+```
+
+ORDER BY ascending sort
+
+```sql
+mysql> select * from student order by percentage;
++--------+----------+----------+------------+------------+-------------------------+
+| rollno | name     | address  | percentage | contact    | email                   |
++--------+----------+----------+------------+------------+-------------------------+
+|      3 | Omya     | pune     |      65.00 | 24364857   |                         |
+|      1 | Kaustubh | Nashik   |      70.00 | 9834499607 | sonujadhav028@gmail.com |
+|      9 | surti    | Banglore |      78.00 | 42820348   |                         |
+|      4 | Umesh    | Nashik   |      80.00 | 24347397   |                         |
+|      5 | Paresh   | Nashik   |      80.00 | 243483397  |                         |
+|      6 | Duggu    | vadgoan  |      80.00 | 9856734    |                         |
+|      7 | Sakshi   | vadgoan  |      80.00 | 9467734    |                         |
+|     10 | swanand  | Mumbai   |      86.00 | 4282033848 |                         |
+|      2 | Piyush   | Nashik   |      90.00 | 77996867   | iampiyush@gmail.com     |
+|      8 | Palle    | Delhi    |      91.00 | 4229748    |                         |
+|     11 | Arpita   | Culcata  |      96.00 | 24454848   |                         |
++--------+----------+----------+------------+------------+-------------------------+
+11 rows in set (0.00 sec)
+```
+
+ORDER BY decending DESC
+
+```sql
+mysql> select * from student order by percentage desc;
++--------+----------+----------+------------+------------+-------------------------+
+| rollno | name     | address  | percentage | contact    | email                   |
++--------+----------+----------+------------+------------+-------------------------+
+|     11 | Arpita   | Culcata  |      96.00 | 24454848   |                         |
+|      8 | Palle    | Delhi    |      91.00 | 4229748    |                         |
+|      2 | Piyush   | Nashik   |      90.00 | 77996867   | iampiyush@gmail.com     |
+|     10 | swanand  | Mumbai   |      86.00 | 4282033848 |                         |
+|      4 | Umesh    | Nashik   |      80.00 | 24347397   |                         |
+|      5 | Paresh   | Nashik   |      80.00 | 243483397  |                         |
+|      6 | Duggu    | vadgoan  |      80.00 | 9856734    |                         |
+|      7 | Sakshi   | vadgoan  |      80.00 | 9467734    |                         |
+|      9 | surti    | Banglore |      78.00 | 42820348   |                         |
+|      1 | Kaustubh | Nashik   |      70.00 | 9834499607 | sonujadhav028@gmail.com |
+|      3 | Omya     | pune     |      65.00 | 24364857   |                         |
++--------+----------+----------+------------+------------+-------------------------+
+11 rows in set (0.00 sec)
+```
+
+TOP 5 student
+
+```sql
+mysql> select * from student order by percentage desc limit 5;
++--------+---------+---------+------------+------------+---------------------+
+| rollno | name    | address | percentage | contact    | email               |
++--------+---------+---------+------------+------------+---------------------+
+|     11 | Arpita  | Culcata |      96.00 | 24454848   |                     |
+|      8 | Palle   | Delhi   |      91.00 | 4229748    |                     |
+|      2 | Piyush  | Nashik  |      90.00 | 77996867   | iampiyush@gmail.com |
+|     10 | swanand | Mumbai  |      86.00 | 4282033848 |                     |
+|      4 | Umesh   | Nashik  |      80.00 | 24347397   |                     |
++--------+---------+---------+------------+------------+---------------------+
+5 rows in set (0.00 sec)
+```
+
+GROUP BY (give record summary) create group
+
+Aggregate function 
+
+(sum,min,max,avg,count)
+
+COUNT
+
+```sql
+mysql> select address,count(*)from student GROUP BY address;
++----------+----------+
+| address  | count(*) |
++----------+----------+
+| Nashik   |        4 |
+| pune     |        1 |
+| vadgoan  |        2 |
+| Delhi    |        1 |
+| Banglore |        1 |
+| Mumbai   |        1 |
+| Culcata  |        1 |
++----------+----------+
+7 rows in set (0.01 sec)
+```
+
+ALIAS temparary name;
+
+```sql
+mysql> select address,count(*)AS 'total address' from student GROUP BY address;
++----------+---------------+
+| address  | total address |
++----------+---------------+
+| Nashik   |             4 |
+| pune     |             1 |
+| vadgoan  |             2 |
+| Delhi    |             1 |
+| Banglore |             1 |
+| Mumbai   |             1 |
+| Culcata  |             1 |
++----------+---------------+
+7 rows in set (0.00 sec)
+
+select dept, MAX(salary) AS 'MAX SAl' from employee GROUP BY dept;
+
+```
+
+MAX and MIN
+
+```sql
+select address,MAX(percentage)AS 'MAX MARKS' from student GROUP BY address;
++----------+-----------+
+| address  | MAX MARKS |
++----------+-----------+
+| Nashik   |     90.00 |
+| pune     |     65.00 |
+| vadgoan  |     80.00 |
+| Delhi    |     91.00 |
+| Banglore |     78.00 |
+| Mumbai   |     86.00 |
+| Culcata  |     96.00 |
++----------+-----------+
+7 rows in set (0.00 sec)
+
+
+select dept,MAX(salary) AS 'MAX SAL' ,MIN(salary) AS 'MIN SAL' from eployee GROUP BY dept;
+```
+
+SUM
+
+```sql
+select dept,sum(salary) AS 'TOTAL sal' from employee group by dept;
+```
+
+USE WHERE when condition on row
+
+HAVING is to give condition on group
+
+```sql
+select dept,sum(salary) AS 'TOTAL SAL' from emplyee group by dept having sum(salary)>=60000;
+```
+
+![[Pasted image 20230720135308.png]]
+
+```sql
+select dept,sum(salary) AS 'TOTAL SAL' from emplyee group by dept having sum(salary)>=60000 order by dept; 
+```
+
+![[Pasted image 20230720135906.png]]
+
+USE like
+name started with p 
+p% use to show that starting letter is p
+
+
+```sql
+mysql> select * from student where name like 'p%';
++--------+--------+---------+------------+-----------+
+| rollno | name   | address | percentage | contact   |
++--------+--------+---------+------------+-----------+
+|      2 | Piyush | Nashik  |      90.00 | 77996867  |
+|      5 | Paresh | Nashik  |      80.00 | 243483397 |
+|      8 | Palle  | Delhi   |      91.00 | 4229748   |
++--------+--------+---------+------------+-----------+
+3 rows in set (0.00 sec)
+
+```
+
+start with p and end with h 
+
+```sql
+mysql> select * from student where name like 'p%h';
++--------+--------+---------+------------+-----------+
+| rollno | name   | address | percentage | contact   |
++--------+--------+---------+------------+-----------+
+|      2 | Piyush | Nashik  |      90.00 | 77996867  |
+|      5 | Paresh | Nashik  |      80.00 | 243483397 |
++--------+--------+---------+------------+-----------+
+2 rows in set (0.00 sec)
+```
+
+name started with p and s
+
+```sql
+mysql> select * from student where name like 'p%' OR name like 's%';
++--------+---------+----------+------------+------------+
+| rollno | name    | address  | percentage | contact    |
++--------+---------+----------+------------+------------+
+|      2 | Piyush  | Nashik   |      90.00 | 77996867   |
+|      5 | Paresh  | Nashik   |      80.00 | 243483397  |
+|      7 | Sakshi  | vadgoan  |      80.00 | 9467734    |
+|      8 | Palle   | Delhi    |      91.00 | 4229748    |
+|      9 | surti   | Banglore |      78.00 | 42820348   |
+|     10 | swanand | Mumbai   |      86.00 | 4282033848 |
++--------+---------+----------+------------+------------+
+6 rows in set (0.00 sec)
+```
+
+![[Pasted image 20230720141031.png]]
+
+```sql
+select * from student where contact IS NULL;
+select * from student where contact IS NOT NULL;
+```
+
+```sql
+mysql> select * from student where contact is not null;
++--------+----------+----------+------------+------------+
+| rollno | name     | address  | percentage | contact    |
++--------+----------+----------+------------+------------+
+|      1 | Kaustubh | Nashik   |      70.00 | 9834499607 |
+|      2 | Piyush   | Nashik   |      90.00 | 77996867   |
+|      3 | Omya     | pune     |      65.00 | 24364857   |
+|      4 | Umesh    | Nashik   |      80.00 | 24347397   |
+|      5 | Paresh   | Nashik   |      80.00 | 243483397  |
+|      6 | Duggu    | vadgoan  |      80.00 | 9856734    |
+|      7 | Sakshi   | vadgoan  |      80.00 | 9467734    |
+|      9 | surti    | Banglore |      78.00 | 42820348   |
+|     10 | swanand  | Mumbai   |      86.00 | 4282033848 |
+|     11 | Arpita   | Culcata  |      96.00 | 24454848   |
++--------+----------+----------+------------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from student where contact is null;
++--------+-------+---------+------------+---------+
+| rollno | name  | address | percentage | contact |
++--------+-------+---------+------------+---------+
+|      8 | Palle | Delhi   |      91.00 | NULL    |
++--------+-------+---------+------------+---------+
+1 row in set (0.00 sec)
+```
+
+
+```sql
+select * from employee where salary between 30000 AND 50000;
+select * from employee where salary > 30000 and salary <50000;
+```
+
+![[Pasted image 20230720142849.png]]
 
